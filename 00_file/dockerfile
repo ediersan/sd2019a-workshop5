@@ -1,0 +1,17 @@
+FROM alpine
+
+LABEL author: juan salinas
+LABEL email: juan@gmail.com
+
+RUN apk add --no-cache apache2
+RUN echo "ServerName 127.0.0.1" > /etc/apache2/conf.d/custom.conf
+RUN mkdir -p /run/apache2
+
+ADD /student.html /var/www/localhost/htdocs/
+
+EXPOSE 80
+
+ENTRYPOINT ["/usr/sbin/httpd"]
+CMD ["-D", "FOREGROUND"]
+
+
